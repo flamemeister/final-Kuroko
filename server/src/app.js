@@ -14,8 +14,10 @@ admin.initializeApp({
 
 const authRoutes = require('./routes/authRoute');
 const authorsRoutes = require('./routes/authorsRoute'); 
+const charactersRoutes = require('./routes/charactersRoute');
 app.use('/auth', authRoutes);
 app.use('/authors', authorsRoutes); 
+app.use('/characters', charactersRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

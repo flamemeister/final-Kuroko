@@ -1,4 +1,3 @@
-// authorController.js
 const admin = require('firebase-admin');
 const db = admin.firestore();
 
@@ -28,7 +27,6 @@ exports.getAllAuthors = async (req, res) => {
   }
 };
 
-// Получение автора по ID
 exports.getAuthorById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,7 +42,6 @@ exports.getAuthorById = async (req, res) => {
   }
 };
 
-// Обновление автора
 exports.updateAuthor = async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,7 +55,6 @@ exports.updateAuthor = async (req, res) => {
   }
 };
 
-// Удаление автора
 exports.deleteAuthor = async (req, res) => {
   try {
     const { id } = req.params;
