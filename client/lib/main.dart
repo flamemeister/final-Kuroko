@@ -3,6 +3,7 @@ import 'package:basketball_kuroko_wiki/view/home_screen.dart';
 import 'package:basketball_kuroko_wiki/view/author_list_screen.dart';
 import 'package:basketball_kuroko_wiki/view/character_list.dart';
 import 'package:basketball_kuroko_wiki/view/news_list_screen.dart';
+import 'package:basketball_kuroko_wiki/view/register_screen.dart'; // Импортируйте экран регистрации
 
 void main() => runApp(const KurokoLegacy());
 
@@ -15,11 +16,18 @@ class KurokoLegacy extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Basketball Kuroko Wiki',
       theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange).copyWith(background: Color(0xFFF88158)), // Background color set to #F88158
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
+            .copyWith(
+                background:
+                    Color(0xFFF88158)), // Background color set to #F88158
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => MainScreen(),
+        '/': (context) =>
+            RegisterScreen(), // Установите экран регистрации как начальный маршрут
+        '/home': (context) =>
+            MainScreen(), // Используйте MainScreen вместо HomeScreen
         '/listOfAuthors': (context) => AuthorListScreen(),
         '/listOfCharacters': (context) => CharacterListScreen(),
         '/listOfNews': (context) => const NewsListScreen(),
