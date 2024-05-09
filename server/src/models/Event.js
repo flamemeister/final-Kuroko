@@ -1,4 +1,20 @@
-class Event {
+/**
+ * @file This file defines the Event class.
+ * @description This class represents an event with a title, description, start date, and end date.
+ */
+
+/**
+ * Represents an event.
+ * @class
+ */
+ class Event {
+    /**
+     * Create an event.
+     * @param {string} title - The title of the event.
+     * @param {string} description - The description of the event.
+     * @param {Date} startDate - The start date of the event.
+     * @param {Date} endDate - The end date of the event.
+     */
     constructor(title, description, startDate, endDate) {
       this.title = title;
       this.description = description;
@@ -6,7 +22,10 @@ class Event {
       this.endDate = endDate;
     }
   
-    // Method to convert Event object to plain JavaScript object
+    /**
+     * Convert the event to a plain JavaScript object.
+     * @returns {Object} A plain JavaScript object representing the event.
+     */
     toObject() {
       return {
         title: this.title,
