@@ -3,7 +3,10 @@ import 'dart:convert'; // Добавьте эту строку для импор
 import 'package:http/http.dart' as http;
 
 import '../model/authors.dart';
+
 import '../model/character.dart';
+
+
 
 Future<String> registerUser(String email, String password) async {
   final response = await http.post(
@@ -66,6 +69,7 @@ Future<List<Authors>> fetchAuthors() async {
   } else {
     throw Exception('Failed to fetch authors');
   }
+
 }
 
 Future<List<Character>> fetchCharacters() async {
@@ -92,4 +96,5 @@ Future<List<Character>> fetchCharacters() async {
   } else {
     throw Exception('Failed to fetch characters');
   }
+
 }

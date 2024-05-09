@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
-import '../controller/authors_controller.dart';
 import '../model/authors.dart';
 import '../view/kuroko_drawer.dart';
 import 'authors_detail_screen.dart';
+import '../services/api_service.dart';
 
-class AuthorListScreen extends StatelessWidget {
-  final AuthorController _authorController = AuthorController();
+class AuthorListScreen extends StatefulWidget {
+  @override
+  _AuthorListScreenState createState() => _AuthorListScreenState();
+}
 
-  AuthorListScreen({super.key});
+class _AuthorListScreenState extends State<AuthorListScreen> {
+  late List<Authors> authorList;
+
+  @override
+  void initState() {
+    super.initState();
+    // Вызываем fetchAuthors для получения данных и сохраняем их в authorList
+    fetchAuthors().then((authors) {
+      setState(() {
+        authorList = authors;
+      });
+    }).catchError((error) {
+      // Обрабатываем ошибку, если произошла
+      print('Error fetching authors: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Authors> authorList = _authorController.getAuthorList();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('here are the authors'),
       ),
       drawer: const KurokoDrawer(),
-      body: GridView.builder(
+      body: authorList == null
+          ? Center(child: CircularProgressIndicator()) // Ожидаем пока данные загружаются
+          : GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.75,
@@ -75,11 +92,11 @@ class AuthorListScreen extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                    MaterialStateProperty.all<Color>(Colors.blue),
                     overlayColor:
-                        MaterialStateProperty.all<Color>(Colors.blue.shade500),
+                    MaterialStateProperty.all<Color>(Colors.blue.shade500),
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
+                    MaterialStateProperty.all<Color>(Colors.white),
                     textStyle: MaterialStateProperty.all<TextStyle>(
                       const TextStyle(fontSize: 15),
                     ),
