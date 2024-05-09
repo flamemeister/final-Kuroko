@@ -17,12 +17,14 @@ const authorsRoutes = require('./routes/authorsRoute');
 const charactersRoutes = require('./routes/charactersRoute');
 const newsRoutes = require('./routes/newsRoute');
 const commentRoutes = require('./routes/commentRoute');
+const eventsRoutes = require('./routes/eventsRoute')
 
 app.use('/auth', authRoutes);
 app.use('/authors', authorsRoutes); 
 app.use('/characters', charactersRoutes);
 app.use('/news', newsRoutes);
 app.use('/comments', commentRoutes); 
+app.use('/events', eventsRoutes); 
 
 
 app.listen(port, () => {
