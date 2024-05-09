@@ -1,4 +1,6 @@
+import 'dart:convert'; // Добавьте эту строку для импорта библиотеки dart:convert
 import 'package:flutter/material.dart';
+import '../services/api_service.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,6 +10,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<void> login() async {
+    try {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+      await loginUser(email, password);
+      Navigator.pushReplacementNamed(context, '/home');
+      print('User login successfully');
+    } catch (e) {
+      print('Failed to login user: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                String email = emailController.text.trim();
-                String password = passwordController.text.trim();
-                // Здесь вызываем функцию для входа пользователя
-                // Например: loginUser(email, password);
+                login();
               },
               child: Text('Login'),
             ),

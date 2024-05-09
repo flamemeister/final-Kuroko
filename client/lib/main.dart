@@ -3,7 +3,8 @@ import 'package:basketball_kuroko_wiki/view/home_screen.dart';
 import 'package:basketball_kuroko_wiki/view/author_list_screen.dart';
 import 'package:basketball_kuroko_wiki/view/character_list.dart';
 import 'package:basketball_kuroko_wiki/view/news_list_screen.dart';
-import 'package:basketball_kuroko_wiki/view/register_screen.dart'; // Импортируйте экран регистрации
+import 'package:basketball_kuroko_wiki/view/register_screen.dart';
+import 'package:basketball_kuroko_wiki/view/login_screen.dart';
 
 void main() => runApp(const KurokoLegacy());
 
@@ -25,7 +26,7 @@ class KurokoLegacy extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) =>
-            RegisterScreen(), // Установите экран регистрации как начальный маршрут
+            LoginScreen(), // Установите экран регистрации как начальный маршрут
         '/home': (context) =>
             MainScreen(), // Используйте MainScreen вместо HomeScreen
         '/listOfAuthors': (context) => AuthorListScreen(),
