@@ -2,6 +2,9 @@ import 'dart:convert'; // Добавьте эту строку для импор
 
 import 'package:http/http.dart' as http;
 
+import '../model/authors.dart';
+import '../model/character.dart';
+
 Future<String> registerUser(String email, String password) async {
   final response = await http.post(
     Uri.parse('https://final-kuroko-2.onrender.com/auth/register'),
@@ -37,5 +40,56 @@ Future<String> loginUser(String email, String password) async {
     return response.body;
   } else {
     throw Exception('Failed to login');
+  }
+}
+
+Future<List<Authors>> fetchAuthors() async {
+  final response = await http.get(
+    Uri.parse('https://final-kuroko-2.onrender.com/authors/'),
+  );
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = jsonDecode(response.body);
+    List<Authors> authorsList = [];
+
+    for (var authorData in data) {
+      Authors author = Authors(
+        authorData['name'],
+        authorData['age'],
+        authorData['role'],
+        authorData['description'],
+      );
+      authorsList.add(author);
+    }
+
+    return authorsList;
+  } else {
+    throw Exception('Failed to fetch authors');
+  }
+}
+
+Future<List<Character>> fetchCharacters() async {
+  final response = await http.get(
+    Uri.parse('https://final-kuroko-2.onrender.com/characters'),
+  );
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = jsonDecode(response.body);
+    List<Character> charactersList = [];
+
+    data.forEach((characterData) {
+      Character character = Character(
+        characterData['name'],
+        characterData['age'],
+        characterData['description'],
+        characterData['imageUrl'],
+        characterData['skill'],
+      );
+      charactersList.add(character);
+    });
+
+    return charactersList;
+  } else {
+    throw Exception('Failed to fetch characters');
   }
 }
