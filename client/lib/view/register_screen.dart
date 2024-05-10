@@ -53,6 +53,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
               child: Text('Register'),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: Text('Login'),
+            ),
           ],
         ),
       ),

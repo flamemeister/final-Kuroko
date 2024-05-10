@@ -1,6 +1,7 @@
 import 'dart:convert'; // Добавьте эту строку для импорта библиотеки dart:convert
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../view/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -50,6 +51,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 login();
               },
               child: Text('Login'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/register');
+              },
+              child: Text('Register'),
             ),
           ],
         ),
