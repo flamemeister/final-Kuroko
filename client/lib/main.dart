@@ -5,6 +5,7 @@ import 'package:basketball_kuroko_wiki/view/character_list.dart';
 import 'package:basketball_kuroko_wiki/view/news_list_screen.dart';
 import 'package:basketball_kuroko_wiki/view/register_screen.dart';
 import 'package:basketball_kuroko_wiki/view/login_screen.dart';
+import 'package:basketball_kuroko_wiki/view/calendar_screen.dart';
 
 void main() => runApp(const KurokoLegacy());
 
@@ -21,7 +22,7 @@ class KurokoLegacy extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
             .copyWith(
                 background:
-                    Color(0xFFF88158)), // Background color set to #F88158
+                    const Color(0xFFF88158)), // Background color set to #F88158
       ),
       initialRoute: '/',
       routes: {
@@ -32,6 +33,7 @@ class KurokoLegacy extends StatelessWidget {
         '/listOfAuthors': (context) => AuthorListScreen(),
         '/listOfCharacters': (context) => CharacterListScreen(),
         '/listOfNews': (context) => const NewsListScreen(),
+        '/listOfEvents': (context) => CalendarScreen(),
       },
     );
   }

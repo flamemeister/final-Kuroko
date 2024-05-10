@@ -44,6 +44,12 @@ class KurokoDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacementNamed(context, '/listOfNews');
             },
+          ),
+          ListTile(
+            title: const Text('Events'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/listOfEvents');
+            },
           )
         ],
       ),
