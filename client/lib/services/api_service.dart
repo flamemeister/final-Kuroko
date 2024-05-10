@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../model/authors.dart';
 import '../model/character.dart';
+import '../model/event.dart';
 
 Future<String> registerUser(String email, String password) async {
   final response = await http.post(
@@ -91,5 +92,23 @@ Future<List<Character>> fetchCharacters() async {
     return charactersList;
   } else {
     throw Exception('Failed to fetch characters');
+  }
+}
+
+Future<Event> fetchEvent() async {
+  final response = await http.get(
+    Uri.parse('https://final-kuroko-2.onrender.com/events/random/get'),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return Event(
+      data['title'],
+      data['description'],
+      data['startDate'],
+      data['endDate'],
+    );
+  } else {
+    throw Exception('Failed to fetch event');
   }
 }

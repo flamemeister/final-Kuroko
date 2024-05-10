@@ -32,7 +32,7 @@ class AuthorListScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  height: 161,
+                  height: 61,
                   child: Container(
                     margin: const EdgeInsets.all(8.0),
                     child: ClipRRect(

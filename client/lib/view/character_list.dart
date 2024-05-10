@@ -89,7 +89,8 @@ class CharacterListScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CharacterDetailsScreen(character: character),
+                              builder: (context) =>
+                                  CharacterDetailsScreen(character: character),
                             ),
                           );
                         },
@@ -100,7 +101,8 @@ class CharacterListScreen extends StatelessWidget {
                           overlayColor: MaterialStateProperty.all<Color>(
                             const Color.fromARGB(255, 22, 52, 76),
                           ),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
                           textStyle: MaterialStateProperty.all<TextStyle>(
                             const TextStyle(fontSize: 15),
                           ),

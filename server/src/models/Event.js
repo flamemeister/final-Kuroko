@@ -31,7 +31,7 @@
         title: this.title,
         description: this.description,
         startDate: this.startDate,
-        endDate: this.endDate
+        endDate : this.endDate,
       };
     }
   }

@@ -32,6 +32,33 @@
      res.status(500).json({ error: 'Failed to create event' });
    }
  };
+
+ /**
+ * Get a random event.
+ * @function getRandomEvent
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {void}
+ */
+exports.getRandomEvent = async (req, res) => {
+  try {
+    const snapshot = await db.collection('events').get();
+    const events = [];
+    snapshot.forEach(doc => {
+      events.push({ id: doc.id, ...doc.data() });
+    });
+    if (events.length === 0) {
+      res.status(404).json({ error: 'No events found' });
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * events.length);
+    const randomEvent = events[randomIndex];
+    res.status(200).json(randomEvent);
+  } catch (error) {
+    logError('Error getting random event:', error);
+    res.status(500).json({ error: 'Failed to get random event' });
+  }
+};
  
  /**
   * Get all events.

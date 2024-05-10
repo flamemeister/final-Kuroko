@@ -41,8 +41,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +56,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             calendarFormat: _calendarFormat,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             onDaySelected: _onDaySelected,
-            onFormatChanged: _onFormatChanged,  // Include this line
+            onFormatChanged: _onFormatChanged, // Include this line
             eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: const CalendarStyle(
@@ -145,7 +143,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   void _showEditEventDialog(int index) {
-    TextEditingController textEditingController = TextEditingController(text: _selectedEvents[index].toString());
+    TextEditingController textEditingController =
+        TextEditingController(text: _selectedEvents[index].toString());
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -173,6 +172,4 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
     );
   }
-
 }
-

@@ -109,5 +109,26 @@
   */
  router.delete('/:id', eventController.deleteEvent);
  
- module.exports = router;
+ /**
+  * @swagger
+  * /events/random/get:
+  *   get:
+  *     summary: Random event.
+  *     description: Endpoint to randomly get an event.
+  *     parameters:
+  *       - in: path
+  *         name: id
+  *         required: true
+  *         schema:
+  *           type: string
+  *     responses:
+  *       200:
+  *         description: Successfully get the event.
+  *       500:
+  *         description: Internal Server Error.
+  */
+
+ router.get('/random/get', eventController.getRandomEvent);
+
  
+ module.exports = router;
