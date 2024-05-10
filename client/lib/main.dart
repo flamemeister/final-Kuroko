@@ -3,14 +3,14 @@ import 'package:basketball_kuroko_wiki/view/home_screen.dart';
 import 'package:basketball_kuroko_wiki/view/author_list_screen.dart';
 import 'package:basketball_kuroko_wiki/view/character_list.dart';
 import 'package:basketball_kuroko_wiki/view/news_list_screen.dart';
+import 'package:basketball_kuroko_wiki/view/calendar_screen.dart';
 import 'package:basketball_kuroko_wiki/view/register_screen.dart';
 import 'package:basketball_kuroko_wiki/view/login_screen.dart';
-import 'package:basketball_kuroko_wiki/view/calendar_screen.dart';
 
 void main() => runApp(const KurokoLegacy());
 
 class KurokoLegacy extends StatelessWidget {
-  const KurokoLegacy({super.key});
+  const KurokoLegacy({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,14 @@ class KurokoLegacy extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
             .copyWith(
-                background:
-                    const Color(0xFFF88158)), // Background color set to #F88158
+          background: const Color(0xFFF88158), // Background color set to #F88158
+        ),
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) =>
-            LoginScreen(), // Установите экран регистрации как начальный маршрут
-        '/home': (context) =>
-            MainScreen(), // Используйте MainScreen вместо HomeScreen
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+        '/home': (context) => MainScreen(),
         '/listOfAuthors': (context) => AuthorListScreen(),
         '/listOfCharacters': (context) => CharacterListScreen(),
         '/listOfNews': (context) => const NewsListScreen(),
