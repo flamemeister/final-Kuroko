@@ -67,7 +67,7 @@ Simply launch the Basketball Kuroko Wiki app to access these sections and immers
 
 ## Contributing
 
-We welcome contributions from the community to improve and enhance the Basketball Kuroko Wiki project. If you encounter any bugs, have suggestions for new features, or would like to contribute in any other way, please reach out to us at [kurokonobasket@gmail.com](mailto:kurokonobasket@gmail.com).
+We welcome contributions from the community to improve and enhance the Basketball Kuroko Wiki project. If you encounter any bugs, have suggestions for new features, or would like to contribute in any other way, please reach out to us at [kurokonobasketwiki@gmail.com](mailto:kurokonobasketwiki@gmail.com).
 
 When reporting issues, please include detailed information such as:
 
