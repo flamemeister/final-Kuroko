@@ -31,12 +31,12 @@ To run the Basketball Kuroko Wiki mobile app, follow these steps:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/basketball-kuroko-wiki.git
+   git clone https://github.com/flamemeister/final-Kuroko.git
    ```
 
 2. **Navigate to the Project Directory:**
    ```bash
-   cd basketball-kuroko-wiki
+   cd final-Kuroko
    ```
 
 3. **Install Dependencies:**
