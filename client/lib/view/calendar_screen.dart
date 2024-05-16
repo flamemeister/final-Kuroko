@@ -1,3 +1,4 @@
+import 'package:basketball_kuroko_wiki/view/kuroko_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -5,7 +6,6 @@ import '../model/event.dart';
 import '../services/api_service.dart';
 import 'event_details_screen.dart';
 
-import 'dart:math';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -53,6 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       appBar: AppBar(
         title: const Text('Events'),
       ),
+      drawer: const KurokoDrawer(),
       body: Column(
         children: [
           TableCalendar(
