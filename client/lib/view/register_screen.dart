@@ -16,11 +16,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       await registerUser(email, password);
-      // Если регистрация прошла успешно, перенаправляем пользователя на главный экран
       Navigator.pushReplacementNamed(context, '/home');
       print('User registered successfully');
     } catch (e) {
-      // Если произошла ошибка при регистрации, вы можете обработать ее здесь
       print('Failed to register user: $e');
     }
   }

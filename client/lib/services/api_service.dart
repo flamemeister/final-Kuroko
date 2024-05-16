@@ -8,7 +8,7 @@ import '../model/event.dart';
 
 Future<String> registerUser(String email, String password) async {
   final response = await http.post(
-    Uri.parse('https://final-kuroko-2.onrender.com/auth/register'),
+    Uri.parse('https://final-kuroko.onrender.com/auth/register'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -27,7 +27,7 @@ Future<String> registerUser(String email, String password) async {
 
 Future<String> loginUser(String email, String password) async {
   final response = await http.post(
-    Uri.parse('https://final-kuroko-2.onrender.com/auth/login'),
+    Uri.parse('https://final-kuroko.onrender.com/auth/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

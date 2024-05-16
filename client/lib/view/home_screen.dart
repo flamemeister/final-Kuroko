@@ -6,6 +6,7 @@ import '../model/feature.dart';
 import '../model/character.dart';
 import '../model/news.dart';
 import '../view/kuroko_drawer.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MainScreen extends StatelessWidget {
   final FeatureController _featureController = FeatureController();
@@ -35,6 +36,7 @@ class MainScreen extends StatelessWidget {
             _buildSectionTitle('News'),
             _buildLatestNewsSection(),
             const SizedBox(height: 20),
+            _buildVideoSection(), // Add the video section here
           ],
         ),
       ),
@@ -50,15 +52,15 @@ class MainScreen extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(12),
       child: Center(
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.indigoAccent,
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigoAccent,
+          ),
         ),
       ),
-    ),
     );
   }
 
@@ -84,8 +86,7 @@ class MainScreen extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
                 const SizedBox(height: 8),
-
-                 Text(
+                Text(
                   feature.name,
                   style: const TextStyle(fontSize: 16),
                 ),
@@ -175,6 +176,30 @@ class MainScreen extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+
+  Widget _buildVideoSection() {
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: '1KLvA6FMNiE',
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      ),
+    );
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.all(8),
+      child: Center(
+        child: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: true,
+        ),
+      ),
     );
   }
 }
