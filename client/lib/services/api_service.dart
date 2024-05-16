@@ -112,3 +112,28 @@ Future<Event> fetchEvent() async {
     throw Exception('Failed to fetch event');
   }
 }
+
+Future<List<Event>> fetchAllEvents() async {
+  final response = await http.get(
+    Uri.parse('https://final-kuroko-2.onrender.com/events'),
+  );
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = jsonDecode(response.body);
+    List<Event> charactersList = [];
+
+    data.forEach((eventData) {
+      Event event = Event(
+        eventData['title'],
+        eventData['description'],
+        eventData['startDate'],
+        eventData['endDate'],
+      );
+      charactersList.add(event);
+    });
+
+    return charactersList;
+  } else {
+    throw Exception('Failed to fetch characters');
+  }
+}

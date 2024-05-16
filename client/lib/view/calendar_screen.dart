@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../model/event.dart';
+import '../services/api_service.dart';
+import 'event_details_screen.dart';
+
+import 'dart:math';
+
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
@@ -9,8 +15,8 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  late Map<DateTime, List<dynamic>> _events;
-  late List<dynamic> _selectedEvents;
+  late Map<DateTime, List<Event>> _events;
+  late List<Event> _selectedEvents;
   late CalendarFormat _calendarFormat;
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
@@ -23,7 +29,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _calendarFormat = CalendarFormat.month;
   }
 
-  List<dynamic> _getEventsForDay(DateTime day) {
+  List<Event> _getEventsForDay(DateTime day) {
     return _events[day] ?? [];
   }
 
@@ -79,35 +85,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _showAddDialog(),
+        onPressed: () => addRandomEvent(),
       ),
     );
   }
 
-  void _showAddDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Add Event'),
-        content: TextField(
-          onSubmitted: (value) {
-            if (value.isNotEmpty) {
-              if (_events[_selectedDay] != null) {
-                _events[_selectedDay]!.add(value);
-              } else {
-                _events[_selectedDay] = [value];
-              }
+  Future<void> addRandomEvent() async {
+    try {
+      List<Event> events = await fetchAllEvents();
+      var index = _selectedDay.day % events.length; // Генерируем случайный индекс
+      _events[_selectedDay]?.add(events[0]); // Добавляем событие в список для выбранного дня
+      setState(() {
+        _selectedEvents = _getEventsForDay(_selectedDay);
+      });
 
-              setState(() {
-                _selectedEvents = _getEventsForDay(_selectedDay);
-              });
-              Navigator.pop(context);
-            }
-          },
+      // Навигация к странице деталей события
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => EventDetailsPage(event: Event (events[index].title, events[index].description, "${_selectedDay.day}.${_selectedDay.month}.${_selectedDay.year}", "${_selectedDay.day}.${_selectedDay.month}.${_selectedDay.year}")),
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      print('Error adding event: $e'); // Логируем ошибку, если что-то пошло не так
+    }
   }
+
 
   void _showEditDeleteDialog(int index) {
     showDialog(
@@ -158,7 +160,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: const Text('Save'),
             onPressed: () {
               setState(() {
-                _events[_selectedDay]![index] = textEditingController.text;
+                _events[_selectedDay]![index] = textEditingController.text as Event;
                 _selectedEvents = _getEventsForDay(_selectedDay);
               });
               Navigator.of(context).pop();
