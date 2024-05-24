@@ -52,6 +52,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Events'),
+        backgroundColor: const Color(0xFFffd166),
       ),
       drawer: const KurokoDrawer(),
       body: Column(
@@ -87,6 +88,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => addRandomEvent(),
+        backgroundColor: const Color(0xFF213e60),
       ),
     );
   }

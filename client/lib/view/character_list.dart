@@ -17,6 +17,7 @@ class CharacterListScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Basketball Kuroko characters'),
+              backgroundColor: const Color(0xFFffd166),
             ),
             drawer: const KurokoDrawer(),
             body: Center(
@@ -27,6 +28,7 @@ class CharacterListScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Basketball Kuroko characters'),
+              backgroundColor: const Color(0xFFffd166),
             ),
             drawer: const KurokoDrawer(),
             body: Center(
@@ -38,6 +40,7 @@ class CharacterListScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Basketball Kuroko characters'),
+              backgroundColor: const Color(0xFFffd166),
             ),
             drawer: const KurokoDrawer(),
             body: GridView.builder(

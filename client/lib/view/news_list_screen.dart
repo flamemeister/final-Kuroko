@@ -25,6 +25,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('kuroko news'),
+        backgroundColor: const Color(0xFFffd166),
       ),
       drawer: const KurokoDrawer(),
       body: ListView.builder(

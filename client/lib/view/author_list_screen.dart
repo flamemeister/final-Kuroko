@@ -15,7 +15,8 @@ class AuthorListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('here are the authors'),
+        title: const Text('Authors'),
+        backgroundColor: const Color(0xFFffd166),
       ),
       drawer: const KurokoDrawer(),
       body: GridView.builder(

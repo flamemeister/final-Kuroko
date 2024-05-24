@@ -11,7 +11,7 @@ class AuthorDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(authors.name),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFffd166),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

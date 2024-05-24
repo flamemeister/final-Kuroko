@@ -28,6 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registration'),
+        backgroundColor: const Color(0xFFffd166),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

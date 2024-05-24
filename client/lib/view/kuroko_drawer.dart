@@ -11,15 +11,9 @@ class KurokoDrawer extends StatelessWidget {
         children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: const Color(0xFFe68c3a),
             ),
-            child: Text(
-              'Basketball Kuroko Wiki',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
+            child: Image(image: AssetImage("assets/logo/Site-logo.webp"))
           ),
           ListTile(
             title: const Text('Main'),

@@ -14,6 +14,7 @@ class EventDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(event.title),
+        backgroundColor: const Color(0xFFffd166),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

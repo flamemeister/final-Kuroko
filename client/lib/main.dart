@@ -21,7 +21,7 @@ class KurokoLegacy extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
             .copyWith(
-          background: const Color(0xFFF88158), // Background color set to #F88158
+          background: const Color(0xFFedede9),
         ),
       ),
       initialRoute: '/login',
