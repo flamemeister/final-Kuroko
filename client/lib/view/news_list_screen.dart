@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../controller/news_controller.dart';
 import '../model/news.dart';
 import '../model/comment.dart';
@@ -8,7 +9,6 @@ class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _NewsListScreenState createState() => _NewsListScreenState();
 }
 
@@ -17,6 +17,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
   final Map<String, List<Comment>> commentsMap = {};
   final Map<String, TextEditingController> commentControllersMap = {};
   final Map<String, bool> showAllCommentsMap = {};
+  final Map<String, double> currentRatingsMap = {};
+  final Map<String, Map<String, double>> ratingsMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,11 @@ class _NewsListScreenState extends State<NewsListScreen> {
           if (!commentControllersMap.containsKey(news.title)) {
             commentControllersMap[news.title] = TextEditingController();
           }
-          TextEditingController commentController =
-              commentControllersMap[news.title]!;
+          TextEditingController commentController = commentControllersMap[news.title]!;
 
           bool showAllComments = showAllCommentsMap[news.title] ?? false;
           List<Comment> comments = commentsMap[news.title] ?? [];
-          List<Comment> displayedComments =
-              showAllComments ? comments : comments.take(2).toList();
+          List<Comment> displayedComments = showAllComments ? comments : comments.take(2).toList();
 
           return Card(
             elevation: 4,
@@ -82,7 +82,23 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   children: displayedComments.map((comment) {
                     return ListTile(
                       title: Text(comment.text),
-                      subtitle: Text('by: ${comment.username}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('by: ${comment.username}'),
+                          if (ratingsMap[news.title]?[comment.text] != null)
+                            RatingBarIndicator(
+                              rating: ratingsMap[news.title]![comment.text]!,
+                              itemBuilder: (context, index) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              itemCount: 5,
+                              itemSize: 20.0,
+                              direction: Axis.horizontal,
+                            ),
+                        ],
+                      ),
                     );
                   }).toList(),
                 ),
@@ -94,7 +110,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
                       });
                     },
                     child: Text(
-                      showAllComments ? 'show less' : 'Show more',
+                      showAllComments ? 'Show less' : 'Show more',
                       style: const TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -103,35 +119,46 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: commentController,
-                    onSubmitted: (value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          commentsMap
-                              .putIfAbsent(news.title, () => [])
-                              .add(Comment(value));
-                          commentController.clear();
-                        });
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Add a comment.',
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.send),
-                        onPressed: () {
-                          String commentText = commentController.text.trim();
-                          if (commentText.isNotEmpty) {
-                            setState(() {
-                              commentsMap
-                                  .putIfAbsent(news.title, () => [])
-                                  .add(Comment(commentText));
-                              commentController.clear();
-                            });
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: commentController,
+                        onSubmitted: (value) {
+                          if (value.isNotEmpty) {
+                            _addComment(news.title, value);
                           }
                         },
+                        decoration: InputDecoration(
+                          hintText: 'Add a comment.',
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.send),
+                            onPressed: () {
+                              String commentText = commentController.text.trim();
+                              if (commentText.isNotEmpty) {
+                                _addComment(news.title, commentText);
+                              }
+                            },
+                          ),
+                        ),
                       ),
-                    ),
+                      RatingBar.builder(
+                        initialRating: 0,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          setState(() {
+                            currentRatingsMap[news.title] = rating;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -140,6 +167,19 @@ class _NewsListScreenState extends State<NewsListScreen> {
         },
       ),
     );
+  }
+
+  void _addComment(String newsTitle, String commentText) {
+    setState(() {
+      commentsMap.putIfAbsent(newsTitle, () => []).add(Comment(commentText));
+      double rating = currentRatingsMap[newsTitle] ?? 0.0;
+      if (!ratingsMap.containsKey(newsTitle)) {
+        ratingsMap[newsTitle] = {};
+      }
+      ratingsMap[newsTitle]![commentText] = rating;
+      commentControllersMap[newsTitle]!.clear();
+      currentRatingsMap[newsTitle] = 0.0;
+    });
   }
 
   @override
