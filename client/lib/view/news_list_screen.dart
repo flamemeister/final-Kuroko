@@ -4,6 +4,7 @@ import '../controller/news_controller.dart';
 import '../model/news.dart';
 import '../model/comment.dart';
 import '../view/kuroko_drawer.dart';
+import '../services/api_service.dart';
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
@@ -19,6 +20,24 @@ class _NewsListScreenState extends State<NewsListScreen> {
   final Map<String, bool> showAllCommentsMap = {};
   final Map<String, double> currentRatingsMap = {};
   final Map<String, Map<String, double>> ratingsMap = {};
+  List<News> newsList = []; // Добавим переменную для хранения списка новостей
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchNews();
+  }
+
+  Future<void> _fetchNews() async {
+    try {
+      List<News> fetchedNews = await fetchLocalNews();
+      setState(() {
+        newsList = fetchedNews; // Обновляем список новостей в состоянии виджета
+      });
+    } catch (error) {
+      print('Error fetching news: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +56,13 @@ class _NewsListScreenState extends State<NewsListScreen> {
           if (!commentControllersMap.containsKey(news.title)) {
             commentControllersMap[news.title] = TextEditingController();
           }
-          TextEditingController commentController = commentControllersMap[news.title]!;
+          TextEditingController commentController =
+              commentControllersMap[news.title]!;
 
           bool showAllComments = showAllCommentsMap[news.title] ?? false;
           List<Comment> comments = commentsMap[news.title] ?? [];
-          List<Comment> displayedComments = showAllComments ? comments : comments.take(2).toList();
+          List<Comment> displayedComments =
+              showAllComments ? comments : comments.take(2).toList();
 
           return Card(
             elevation: 4,
@@ -133,7 +154,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.send),
                             onPressed: () {
-                              String commentText = commentController.text.trim();
+                              String commentText =
+                                  commentController.text.trim();
                               if (commentText.isNotEmpty) {
                                 _addComment(news.title, commentText);
                               }
@@ -147,7 +169,8 @@ class _NewsListScreenState extends State<NewsListScreen> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,

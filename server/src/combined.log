@@ -36,3 +36,5 @@
 {"level":"info","message":"Event created successfully"}
 {"level":"info","message":"Event created successfully"}
 {"level":"info","message":"Event created successfully"}
+{"level":"info","message":"News article created successfully"}
+{"level":"info","message":"News saved to local database successfully"}
